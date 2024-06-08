@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@plasmohq/messaging": "^0.6.2",
+    "@plasmohq/storage": "^1.10.0",
+    "@supabase/supabase-js": "^2.43.4",
     "@types/jquery": "^3.5.30",
     "jquery": "^3.7.1",
     "plasmo": "0.86.3",
@@ -30,6 +32,20 @@
   "manifest": {
     "host_permissions": [
       "https://*/*"
+    ],
+    "key": "$CRX_KEY",
+    "web_accessible_resources": [
+      {
+        "resources": [
+          "options.html"
+        ],
+        "matches": [
+          "<all_urls>"
+        ],
+        "extension_ids": [
+          "$CRX_ID"
+        ]
+      }
     ]
   }
 }
