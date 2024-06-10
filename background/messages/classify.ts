@@ -1,7 +1,7 @@
 import type { PlasmoMessaging } from "@plasmohq/messaging"
 
 async function classifyTweet(tweetText: string): Promise<boolean> {
-    const endpoint = 'http://127.0.0.1:8787/classify';
+    const endpoint = process.env.PLASMO_PUBLIC_CLASSIFY_URL.concat("/classify")
     try {
         const response = await fetch(endpoint, {
             method: 'POST',
