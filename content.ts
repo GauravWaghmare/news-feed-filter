@@ -1,35 +1,10 @@
 import type {PlasmoCSConfig} from "plasmo";
-import {sendToBackground} from "@plasmohq/messaging";
 import $ from 'jquery';
+import {tweetChanges} from "~handler"
 
 export const config: PlasmoCSConfig = {
     matches: ["https://x.com/home"],
     all_frames: true,
-}
-
-async function classifyTweet(tweetText: string): Promise<boolean> {
-    return await sendToBackground({
-        name: "classify",
-        body: {
-            tweetText: tweetText
-        },
-    })
-}
-
-async function tweetChanges(records, observer) {
-    for (const record of records) {
-        for (const addedNode of record.addedNodes) {
-            let tweetText = $(addedNode).find('[data-testid="tweetText"]:first').children('span.css-1jxf684').text()
-            if (tweetText.length == 0) {
-                continue
-            }
-            let isPolitical = await classifyTweet(tweetText)
-            if (isPolitical["message"]) {
-                $(addedNode).hide()
-            }
-
-        }
-    }
 }
 
 async function start () {
@@ -50,8 +25,7 @@ async function start () {
 }
 
 export const exportedForTesting = {
-    start,
-    tweetChanges
+    start
 }
 
 $().ready(start)

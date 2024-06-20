@@ -1,8 +1,10 @@
 import {exportedForTesting} from "~content";
-import {describe, expect, jest, it, beforeEach} from "@jest/globals"
+import {describe, expect, jest, it, afterEach, beforeEach} from "@jest/globals"
+import {tweetChanges} from "~handler";
 
-const {start, tweetChanges} = exportedForTesting;
-describe("startFunction", () => {
+const {start} = exportedForTesting;
+
+describe("start", () => {
     let mutationObserverMock;
     let observeFunctionMock;
 
@@ -10,10 +12,6 @@ describe("startFunction", () => {
         observeFunctionMock = jest.fn()
         mutationObserverMock = jest.fn(function MutationObserver(callback: (arg0: MutationRecord[], arg1: MutationObserver) => any) {
             this.observe = observeFunctionMock;
-            // Optionally add a trigger() method to manually trigger a change
-            this.trigger = (mockedMutationsList) => {
-                callback(mockedMutationsList, this);
-            };
         });
         global.MutationObserver = mutationObserverMock;
     })
@@ -39,4 +37,8 @@ describe("startFunction", () => {
         })
 
     });
+
+    afterEach(() => {
+        global.MutationObserver = MutationObserver;
+    })
 });
