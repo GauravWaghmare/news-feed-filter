@@ -19,7 +19,6 @@ export async function tweetChanges(records: MutationRecord[], observer: Mutation
             }
             let isPolitical = await classifyTweet(tweetText.trim())
             if (isPolitical["message"]) {
-                console.log(">>>>> hiding at", new Date())
                 $(addedNode).hide()
             }
 
