@@ -17,6 +17,7 @@ export async function tweetChanges(records: MutationRecord[], observer: Mutation
             if (tweetText.length == 0) {
                 continue
             }
+            // console.log("New tweet with text", tweetText, "added")
             let isPolitical = await classifyTweet(tweetText.trim())
             if (isPolitical["message"]) {
                 $(addedNode).hide()
