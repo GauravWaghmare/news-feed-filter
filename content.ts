@@ -3,7 +3,7 @@ import $ from 'jquery';
 import {tweetChanges} from "~handler"
 
 export const config: PlasmoCSConfig = {
-    matches: ["https://x.com*", "https://www.x.com*"],
+    matches: ["https://x.com/*"],
     all_frames: true,
 }
 
