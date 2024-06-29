@@ -1,7 +1,7 @@
 {
   "name": "news-feed-filter",
   "displayName": "News feed filter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Extension to filter out news feed items based on taste",
   "author": "Gaurav Waghmare <gauravwaghmare30@gmail.com>",
   "scripts": {
