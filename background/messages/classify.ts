@@ -4,7 +4,7 @@ import { Storage } from "@plasmohq/storage"
 const storage = new Storage()
 
 async function classifyTweet(tweetText: string): Promise<boolean> {
-    const endpoint = process.env.PLASMO_PUBLIC_CLASSIFY_URL.concat("/classify")
+    const endpoint = process.env.PLASMO_PUBLIC_CLASSIFY_URL.concat("/v2/classify")
     const selectedOptions: string[] = await storage.get("selectedOptions")
     try {
         console.log("Calling news feed filter server with text", tweetText, "and options", selectedOptions)
