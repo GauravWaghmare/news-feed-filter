@@ -1,15 +1,19 @@
 import type { PlasmoMessaging } from "@plasmohq/messaging"
+import { Storage } from "@plasmohq/storage"
+
+const storage = new Storage()
 
 async function classifyTweet(tweetText: string): Promise<boolean> {
     const endpoint = process.env.PLASMO_PUBLIC_CLASSIFY_URL.concat("/classify")
+    const selectedOptions: string[] = await storage.get("selectedOptions")
     try {
-        console.log("Calling news feed filter server with text", tweetText)
+        console.log("Calling news feed filter server with text", tweetText, "and options", selectedOptions)
         const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ tweetText })
+            body: JSON.stringify({ tweetText: tweetText, selectedOptions: selectedOptions })
         });
 
         if (!response.ok) {
@@ -17,7 +21,6 @@ async function classifyTweet(tweetText: string): Promise<boolean> {
         }
 
         const result = await response.json();
-        console.log("Received response", result['isPolitical'], "for tweet text", tweetText)
         return result['isPolitical'];
     } catch (error) {
         console.error('Error calling /classify endpoint:', error);
