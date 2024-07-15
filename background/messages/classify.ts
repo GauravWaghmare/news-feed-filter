@@ -7,7 +7,6 @@ async function classifyTweet(tweetText: string): Promise<boolean> {
     const endpoint = process.env.PLASMO_PUBLIC_CLASSIFY_URL.concat("v2/classify")
     const selectedOptions: string[] = await storage.get("selectedOptions")
     try {
-        console.log("Calling news feed filter server with text", tweetText, "and options", selectedOptions)
         const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
@@ -21,7 +20,7 @@ async function classifyTweet(tweetText: string): Promise<boolean> {
         }
 
         const result = await response.json();
-        return result['isPolitical'];
+        return result['belongsToCategory'];
     } catch (error) {
         console.error('Error calling /v2/classify endpoint:', error);
     }
